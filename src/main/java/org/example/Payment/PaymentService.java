@@ -15,8 +15,8 @@ public class PaymentService {
     }
 
     public void choosePaymentStrategy(double fee) {
-        System.out.print("Your total fee is :"+fee);
-        System.out.print("Select payment strategy.");
+        System.out.println("Your total fee is :"+fee);
+        System.out.println("Select payment strategy.");
         System.out.println("1. CASE");
         System.out.println("2. UPI");
         System.out.println("3. CREDIT CARD");
