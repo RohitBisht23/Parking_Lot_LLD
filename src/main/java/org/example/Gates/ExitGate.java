@@ -15,29 +15,30 @@ public class ExitGate {
         this.paymentService = service;
     }
 
-    public void processExit(int spotNumber, int hourStayed) {
+    public void processExit(int spotNumber, int hoursStayed) {
+        // Find the spot by number
         ParkingSpot spot = parkingLot.getSpotByNumber(spotNumber);
-        System.out.println("Spot Id : "+spot.toString());
-        System.out.println("Spi -=--"+spot.isOccupied());
-        if(spot == null || spot.isOccupied()) {
+
+        if (spot == null || !spot.isOccupied()) {
             System.out.println("Invalid or vacant spot!");
             return;
         }
 
-        //Get the vehicle in the spot
+        // Get the vehicle in the spot
         Vehicle vehicle = spot.getVehicle();
-        if(vehicle == null) {
-            System.out.println("No vehicle found in the spot.");
+        if (vehicle == null) {
+            System.out.println("No vehicle found in the spot!");
             return;
         }
 
-        double fee = vehicle.calculateFee(hourStayed);
+        // Calculate the parking fee
+        double fee = vehicle.calculateFee(hoursStayed);
 
-        //Delegate payment process for paymentService
+        // Delegate payment processing to PaymentService
         paymentService.processPayment(fee);
 
-        //Vacant spot after payment
+        // Vacate the spot after payment
         parkingLot.vacateSpot(spot, vehicle);
-        System.out.println("Spot vacated successfully.");
+        System.out.println("Spot vacated successfully!");
     }
 }

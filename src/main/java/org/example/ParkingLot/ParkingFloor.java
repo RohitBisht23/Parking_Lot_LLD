@@ -8,36 +8,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingFloor {
-    private List<ParkingSpot> spots;
-    private int floorNumber;   //To track which floor this is
+    private List<ParkingSpot> spots;  // List of parking spots on this floor
+    private int floorNumber;  // To track which floor this is
 
-    public ParkingFloor(int floorNumber, int numberOFCars, int numberOFBikes) {
+    // Constructor to initialize the parking floor with a specific number of spots for cars and bikes
+    public ParkingFloor(int floorNumber, int numOfCarSpots, int numOfBikeSpots) {
         this.floorNumber = floorNumber;
-        spots = new ArrayList<>(); //initialize the floor parking spot list
+        this.spots = new ArrayList<>();  // Initialize the list of spots
 
-        //Add spots for car
-        for(int i=0; i<numberOFCars; i++) {
-            this.spots.add(new CarParkingSpot(i+1)); // Add car spots (using carParkingSpot)
+        // Add spots for cars
+        for (int i = 0; i < numOfCarSpots; i++) {
+            this.spots.add(new CarParkingSpot(i + 1));  // Add car spots (using CarParkingSpot)
         }
 
-        //Add spots for bike
-        for(int i=0; i<numberOFBikes; i++) {
-            this.spots.add(new BikeParkingSpot(i+1)); // Add bike spots (Using BikeParkingSpot)
+        // Add spots for bikes
+        for (int i = numOfCarSpots; i < numOfCarSpots + numOfBikeSpots; i++) {
+            this.spots.add(new BikeParkingSpot(i + 1));  // Add bike spots (using BikeParkingSpot)
         }
     }
 
 
-    //Method to find the available spots based on the vehicle type
+
+    // Method to find an available spot based on the vehicle type
     public ParkingSpot findAvailableSpot(String vehicleType) {
-        for(ParkingSpot spot : spots) {
-            if(!spot.isOccupied() && spot.getSpotType().equalsIgnoreCase(vehicleType)) {
-                return spot;
+        for (ParkingSpot spot : spots) {
+            if (!spot.isOccupied() && spot.getSpotType().equalsIgnoreCase(vehicleType)) {
+                return spot;  // Return the first available spot for the vehicle type
             }
         }
-        return null;
+        return null;  // No available spot found for the given vehicle type
     }
 
-    //Method to return all the parking spot int this floor
+
+
+    // Method to return all parking spots on this floor
     public List<ParkingSpot> getParkingSpots() {
         return spots;
     }
